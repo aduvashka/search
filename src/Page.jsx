@@ -3,10 +3,10 @@ import React , { useState, useEffect }  from 'react';
 
 
 function Page() {
- const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState(); 
-  
+  const [items, setItems] = useState('');
+
   useEffect(() => {
     fetch(`https://hn.algolia.com/api/v1/search?query=${items}`)
       .then(res => res.json())
@@ -20,9 +20,8 @@ function Page() {
           setError(error);
         }
       )
-  })
-    
-    console.log(items)
+  }); 
+
   if (error) {
     return <div>Oops: {error.message}</div>;
   } else if (!isLoaded) {
@@ -34,28 +33,30 @@ function Page() {
           onSubmit={e=>{
             e.preventDefault();
           }}
-          >
-            <input
-              type="text"
-              placeholder="Search.."
-              // value={items}
-             
-            /> 
-          <button type="submit">Search</button>
+        >
+          <input
+            type="text"
+            placeholder="Search.."
+            value={items}
+            onChange={event => setItems(event.target.value ) }
+          />
+          <button type="submit"
+          // onClick={}
+          >Search</button>
         </form>
-        {items
-          ? items.hits.map(item => {
+        <ul>
+          {items &&
+            items.hits.map(item => {
               return (
-                <ul>
-                  <li key={item.objectID}>
+                <li key={item.objectID}>
                     <a href={item.url} target="_blank">{item.title}</a>
-                      <p> {item.author}</p>
-                      <p>{item.num_comments}</p>
-                  </li>
-                </ul>
+                    <p> {item.author}</p>
+                    <p>{item.num_comments}</p>
+                </li>
               )
             })
-          :"Loading..." }       
+          }
+        </ul>
       </div>
     );
   }
