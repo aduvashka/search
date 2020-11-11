@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./styles.css"
+import Modal from "./Modal"
+
 
 
 function Page() {
@@ -7,6 +9,7 @@ function Page() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [result, setResult] = useState(null);
   const [search, setSearch] = useState("");
+  const [modalIsOpen, getIsOpen] = useState(false);
 
   
 
@@ -33,9 +36,15 @@ function Page() {
     function handleClick(e) {
       e.preventDefault();
       console.log('click');
-    }
+  }
+  
+   function openModal() {
+    getIsOpen (true);
+  }
 
-
+    function closeModal(){
+    getIsOpen(false);
+  }
 
   if (error) {
     return <div>Oops: {error.message}</div>;
@@ -56,22 +65,31 @@ function Page() {
             onChange={event => setSearch(event.target.value)}
           />
         </form>
-        <ol className= "article">
+        <div className= "article">
           {result&&
             result.hits.map(item => (
-                <li key={item.objectID}>
-                <a
+              <div className= "item" key={item.objectID}>
+                <button
+                onClick={openModal}
+                >
+                  <Modal
+                    isOpen={modalIsOpen}
+                    onClose={closeModal}
+                  >
+                  </Modal>
+                  <a
                   onClick={handleClick}
                   href={item.url}
-                >
+                  >
                   {item.title}
                 </a>
+                </button>
                     <p className= "author">Author: {item.author}</p>
                     <p className= "comments">{item.num_comments}</p>
-                </li>
+                </div>
             ))
           }
-        </ol>
+        </div>
       </div>
     );
   }
