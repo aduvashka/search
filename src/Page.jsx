@@ -1,5 +1,5 @@
-import React , { useState, useEffect }  from 'react';
-
+import React, { useState, useEffect } from 'react';
+import "./styles.css"
 
 
 function Page() {
@@ -8,23 +8,33 @@ function Page() {
   const [result, setResult] = useState(null);
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-  fetch(`https://hn.algolia.com/api/v1/search?query=${search}`)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          setResult(result);          
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      )
-  },[search]); 
-   
-
   
+
+
+  useEffect(() => {
+    fetch(`https://hn.algolia.com/api/v1/search?query=${search}`, {
+     headers: {
+    Accept: "application/json",
+  },
+    })
+    .then(res => res.json())
+    .then(
+      (result) => {
+        setIsLoaded(true);
+        setResult(result);
+      },
+      (error) => {
+        setIsLoaded(true);
+        setError(error);
+      }
+    )
+  }, [search]);
+
+    function handleClick(e) {
+      e.preventDefault();
+      console.log('click');
+    }
+
 
 
   if (error) {
@@ -33,7 +43,7 @@ function Page() {
     return <div>Loaded...</div>;
   } else {
     return (
-      <div className="page">
+      <div className= "page" >
         <form
           onSubmit={e=>{
             e.preventDefault();
@@ -46,19 +56,22 @@ function Page() {
             onChange={event => setSearch(event.target.value)}
           />
         </form>
-        <ul>
+        <ol className= "article">
           {result&&
             result.hits.map(item => (
-              
                 <li key={item.objectID}>
-                    <a href={item.url}  >{item.title}</a>
-                    <p> {item.author}</p>
-                    <p>{item.num_comments}</p>
+                <a
+                  onClick={handleClick}
+                  href={item.url}
+                >
+                  {item.title}
+                </a>
+                    <p className= "author">Author: {item.author}</p>
+                    <p className= "comments">{item.num_comments}</p>
                 </li>
-   
             ))
           }
-        </ul>
+        </ol>
       </div>
     );
   }
