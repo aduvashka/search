@@ -11,11 +11,14 @@ function Page() {
   const [search, setSearch] = useState("");
   const [modalIsOpen, getIsOpen] = useState(false);
 
-  
+  let url = `https://hn.algolia.com/api/v1/search`;
 
+  if (search) {
+    url = `${url}?query=${search}`
+  }
 
   useEffect(() => {
-    fetch(`https://hn.algolia.com/api/v1/search?query=${search}`, {
+    fetch(url, {
      headers: {
     Accept: "application/json",
   },
