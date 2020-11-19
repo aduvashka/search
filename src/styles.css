@@ -47,6 +47,12 @@ input {
   margin-bottom: 0.5em;
   padding-bottom: 10px;
 }
+.item button {
+  width: 100%;
+  border: none;
+  outline: none;
+}
+
 .article a {
   position: relative;
   display: block;
@@ -54,7 +60,6 @@ input {
   margin: 0.5em 0;
   color: #444;
   text-decoration: none;
-  border-radius: 0.3em;
   font-size: 18px;
   font-weight: 600;
 }
@@ -81,4 +86,12 @@ input {
 }
 .author {
   margin-bottom: 0.5em;
+}
+.allComments {
+  background: #dad2ca;
+  cursor: pointer;
+  text-decoration: none;
+}
+.allComments:active {
+  height: 2vh;
 }

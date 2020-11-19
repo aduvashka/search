@@ -18,11 +18,7 @@ function Page() {
   }
 
   useEffect(() => {
-    fetch(url, {
-     headers: {
-    Accept: "application/json",
-  },
-    })
+    fetch(url)
     .then(res => res.json())
     .then(
       (result) => {
@@ -36,17 +32,15 @@ function Page() {
     )
   }, [search]);
 
-    function handleClick(e) {
-      e.preventDefault();
-      console.log('click');
-  }
   
    function openModal() {
-    getIsOpen (true);
+     getIsOpen(true);
+      console.log('111')
   }
 
     function closeModal(){
-    getIsOpen(false);
+      getIsOpen(false);
+      console.log('ddd')
   }
 
   if (error) {
@@ -69,27 +63,26 @@ function Page() {
           />
         </form>
         <div className= "article">
-          {result&&
+          {result &&
             result.hits.map(item => (
               <div className= "item" key={item.objectID}>
-                <button
+                <button>
+                  <a href={item.url} target="_blank">
+                    {item.title}
+                  </a>
+                </button>
+                <p className="author">Author: {item.author}</p>
+                <button className="allComments"
                 onClick={openModal}
                 >
-                  <Modal
-                    isOpen={modalIsOpen}
-                    onClose={closeModal}
-                  >
-                  </Modal>
-                  <a
-                  onClick={handleClick}
-                  href={item.url}
-                  >
-                  {item.title}
-                </a>
+                  <p className="comments">{item.num_comments}</p>
                 </button>
-                    <p className= "author">Author: {item.author}</p>
-                    <p className= "comments">{item.num_comments}</p>
-                </div>
+                <Modal
+                  isOpen={modalIsOpen}
+                  onClose={closeModal}
+                >
+                </Modal>
+              </div>
             ))
           }
         </div>

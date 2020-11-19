@@ -3,14 +3,15 @@ import "./Modal.css";
 
 
 function Modal(props) {
-    const { closeModal } = props;
+    const { isOpen, onClose } = props;
 
     return (
         <Fragment>
-            <div className="modal">
-
-            <button onClick={closeModal}>Close</button>
-          </div>
+            {isOpen && (
+                <div className="modal">
+                    <button onClick={onClose}>Close</button>
+                </div>
+            )}
         </Fragment>
 
     )
