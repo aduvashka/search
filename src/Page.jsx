@@ -9,7 +9,7 @@ function Page() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [result, setResult] = useState(null);
   const [search, setSearch] = useState("");
-  const [modalIsOpen, getIsOpen] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(0);
 
   let url = `https://hn.algolia.com/api/v1/search`;
 
@@ -30,17 +30,20 @@ function Page() {
         setError(error);
       }
     )
-  }, [search]);
+  }, [url]);
 
-  
-   function openModal() {
-     getIsOpen(true);
+  function getOpenModal(value) {
+    return function () {
+      setIsOpen(value);
       console.log('111')
+    }
   }
 
-    function closeModal(){
-      getIsOpen(false);
+  function getCloseModal(value){
+    return function () {
+      setIsOpen(0);
       console.log('ddd')
+    }
   }
 
   if (error) {
@@ -72,14 +75,16 @@ function Page() {
                   </a>
                 </button>
                 <p className="author">Author: {item.author}</p>
-                <button className="allComments"
-                onClick={openModal}
+                <button
+                  className="allComments"
+                  onClick={getOpenModal(item.objectID)}
                 >
                   <p className="comments">{item.num_comments}</p>
                 </button>
                 <Modal
-                  isOpen={modalIsOpen}
-                  onClose={closeModal}
+                  isOpen={modalIsOpen === item.objectID}
+                  onClose={getCloseModal(item.objectID)}
+                  title={item.title}
                 >
                 </Modal>
               </div>
