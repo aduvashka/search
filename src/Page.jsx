@@ -10,6 +10,7 @@ function Page() {
   const [result, setResult] = useState(null);
   const [search, setSearch] = useState("");
   const [modalIsOpen, setIsOpen] = useState(0);
+  const [articleId, setArticleId] = useState(null);
 
   let url = `https://hn.algolia.com/api/v1/search`;
 
@@ -35,14 +36,13 @@ function Page() {
   function getOpenModal(value) {
     return function () {
       setIsOpen(value);
-      console.log('111')
+      setArticleId(value);
     }
   }
 
   function getCloseModal(value){
     return function () {
       setIsOpen(0);
-      console.log('ddd')
     }
   }
 
@@ -67,28 +67,29 @@ function Page() {
         </form>
         <div className= "article">
           {result &&
-            result.hits.map(item => (
-              <div className= "item" key={item.objectID}>
+            result.hits.map(article => (
+              <div className= "item" key={article.objectID}>
                 <button>
-                  <a href={item.url} target="_blank">
-                    {item.title}
+                  <a href={article.url} target="_blank">
+                    {article.title}
                   </a>
                 </button>
-                <p className="author">Author: {item.author}</p>
+                <p className="author">Author: {article.author}</p>
                 <button
                   className="allComments"
-                  onClick={getOpenModal(item.objectID)}
+                  onClick={getOpenModal(article.objectID)}
                 >
-                  <p className="comments">{item.num_comments}</p>
+                  <p className="comments">{article.num_comments}</p>
                 </button>
-                <Modal
-                  isOpen={modalIsOpen === item.objectID}
-                  onClose={getCloseModal(item.objectID)}
-                  title={item.title}
-                >
-                </Modal>
               </div>
             ))
+          }
+          { modalIsOpen &&
+            <Modal
+              isOpen={articleId}
+              onClose={getCloseModal(articleId)}
+              articleId={articleId}
+            />
           }
         </div>
       </div>

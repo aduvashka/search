@@ -1,21 +1,49 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect,useState } from 'react';
+import Comments from './Comments';
 import "./Modal.css";
 
 
 function Modal(props) {
-    const { isOpen, onClose,title } = props;
+  const {
+    onClose,
+    articleId,
+  } = props;
+
+
+  // const [isLoaded, setIsLoaded] = useState(false);
+  const [storyId, setStoryId] = useState(null);
+
+  let url = `https://hn.algolia.com/api/v1/items`;
+
+  if (articleId) {
+    url=`${url}/${articleId}`
+  }
+
+  useEffect(() => {
+    fetch(url)
+      .then(res => res.json())
+      .then(
+        (story) => {
+          // setIsLoaded(true);
+          setStoryId(story);
+        }
+      )
+  }, [url]);
+
+  console.log(storyId)
 
     return (
-        <Fragment>
-            {isOpen && (
-                <div className="modal">
-                    <button onClick={onClose}>Close</button>
-                    <h3>{title}</h3>
-                </div>
-            )}
-        </Fragment>
+      <Fragment>
+        <div className="modal">
+          <button className="close" onClick={onClose}>Close</button>
+          {storyId &&
+            <Comments comments={storyId} />
+          }
+        </div>
 
+      </Fragment>
     )
-}
+  }
+
 
 export default Modal;
