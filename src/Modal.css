@@ -15,10 +15,8 @@
   top: -11px;
   padding: 15px 0;
   background: #c7eee3;
-}
-.comment a {
-  list-style: none;
-  text-decoration: none;
+  width: 100%;
+  z-index: 2;
 }
 .spinner {
   width: 50px;

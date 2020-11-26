@@ -30,14 +30,12 @@ function Modal(props) {
       )
   }, [url]);
 
-  console.log(storyId)
-
     return (
       <Fragment>
         <div className="modal">
           <button className="close" onClick={onClose}>Close</button>
           {storyId &&
-            <Comments comments={storyId} />
+            <Comments comments={storyId.children} />
           }
         </div>
 
