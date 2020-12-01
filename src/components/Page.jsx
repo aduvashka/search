@@ -3,7 +3,6 @@ import "./styles.css"
 import Modal from "./Modal"
 
 
-
 function Page() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -11,6 +10,7 @@ function Page() {
   const [search, setSearch] = useState("");
   const [modalIsOpen, setIsOpen] = useState(0);
   const [articleId, setArticleId] = useState(null);
+
 
   let url = `https://hn.algolia.com/api/v1/search`;
 
@@ -62,7 +62,7 @@ function Page() {
             type="text"
             placeholder="Search.."
             value={search}
-            onChange={event => setSearch(event.target.value)}
+            onChange={event =>  setSearch(event.target.value)}
           />
         </form>
         <div className= "article">

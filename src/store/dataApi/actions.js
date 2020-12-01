@@ -1,0 +1,5 @@
+export const FETCH_INITIAL = 'FETCH_INITIAL';
+export const FETCH_LOADED = 'FETCH_LOADED';
+export const FETCH_ERROR = 'FETCH_ERROR';
+export const SET_INPUT_VALUE = "SET_INPUT_VALUE";
+
