@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import "./styles.css"
 import Modal from "./Modal"
+import {connect} from 'react-redux'
+import { getError, getLoaded, getUrlApi } from '../store/dataApi/apiReducer';
+import fetchApi from '../store/dataApi/fetchApi';
 
-
-function Page() {
+function Page(props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [result, setResult] = useState(null);
   const [search, setSearch] = useState("");
   const [modalIsOpen, setIsOpen] = useState(0);
   const [articleId, setArticleId] = useState(null);
+  const {
+    urlApi,
+    loaded,
+    // error,
+  } = props;
+  
+  console.log("🚀 ~ file: Page.jsx ~ line 17 ~ Page ~ urlApi", urlApi)
 
 
   let url = `https://hn.algolia.com/api/v1/search`;
@@ -97,4 +106,12 @@ function Page() {
   }
 }
 
-export default Page;
+const mapStateToProps = (state) => ({
+  urlApi: getUrlApi(state),
+  loaded: getLoaded(state),
+  error: getError(state),
+})
+const mapDispatchToProps = dispatch => ({
+    fetchApi: fetchApi
+})
+export default connect(mapStateToProps,mapDispatchToProps)(Page);

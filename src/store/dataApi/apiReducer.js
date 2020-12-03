@@ -1,44 +1,42 @@
-import { FETCH_INITIAL, FETCH_LOADED, FETCH_ERROR, SET_INPUT_VALUE } from './actions'
+import { FETCH_SUCCESS, FETCH_LOADED, FETCH_ERROR } from './actions'
 
 
-const defaultState = {
+const initialState = {
     isLoaded: false,
     isError: null,
-    isResult: null,
-    isSearch: '',
+    isUrlApi:'',
 };
 
 
 
-export const dataFetchReducer = (state = defaultState, action) => {
+export const dataFetchReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_INITIAL:
+        case FETCH_SUCCESS:
             return {
                 ...state,
-                isLoaded: true,
-                isError: false,
+                isUrlApi: action.payload,
+                isLoading: false,
+                isError: false
             };
         case FETCH_LOADED:
             return {
                 ...state,
-                isLoaded: false,
-                isError: false,
+                isLoaded: true,
             };
         case FETCH_ERROR:
             return {
                 ...state,
-                isError: true,
                 isLoaded: false,
+                isError: action.error,
             };
-        case SET_INPUT_VALUE:
-            return {
-                ...state,
-                inputValue: action.value
-            }
         default:
             return state;
     }
 };
+//useSelectorHook
+export const getUrlApi = state => state.isUrlApi;
+export const getLoaded = state => state.isLoaded;
+export const getError = state => state.isError;
 
 
 
