@@ -2,23 +2,34 @@ export const FETCH_LOADED = 'FETCH_LOADED';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_ERROR = 'FETCH_ERROR';
 
-export function fetchLoaded() {
+export const CHANGE_SEARCH = 'CHANGE_SEARCH';
+
+
+
+export function setFetchLoaded(loaded) {
     return {
         type: FETCH_LOADED,
+        payload: loaded
     }
 }
 
-export function fetchSuccess(result) {
+export function setFetchSuccess(result) {
     return {
         type: FETCH_SUCCESS,
-        isUrlApi: result,
+        payload: result
     }
 }
 
-export function fetchError(error) {
+export function setFetchError(error) {
     return {
         type: FETCH_ERROR,
-        isError: error,
+        payload: error,
     }
 }
 
+export function setChangeSearch(search) {
+    return {
+        type: CHANGE_SEARCH,
+        payload: search
+    }
+}
