@@ -21,12 +21,10 @@ export const dataFetchReducer = (state = initialState, action) => {
         case FETCH_LOADED:
             return {
                 ...state,
-                isLoaded: true,
             };
         case FETCH_ERROR:
             return {
                 ...state,
-                isLoaded: false,
                 isError: action.error,
             };
         case CHANGE_SEARCH:
@@ -38,10 +36,6 @@ export const dataFetchReducer = (state = initialState, action) => {
             return state;
     }
 };
-//useSelectorHook
-export const getResult = state => state.isResult;
-export const getLoaded = state => state.isLoaded;
-export const getError = state => state.isError;
 
 
 

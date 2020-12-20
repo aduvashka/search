@@ -1,27 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 import "./styles.css"
 import Modal from "./Modal"
-import {connect} from 'react-redux'
 import { setChangeSearch } from '../store/dataApi/actions';
-import { getResult, getLoaded, getError } from '../store/dataApi/apiReducer';
 import { setFetchApi } from '../store/dataApi/setFetchApi';
 
 function Page(props) {
-  // const [error, setError] = useState(null);
-  // const [isLoaded, setIsLoaded] = useState(false);
-  // const [result, setResult] = useState(null);
+
+  const error = useSelector(state => state.dataFetch.isError);
+  const loaded = useSelector(state => state.dataFetch.isLoaded);
+  const result = useSelector(state => state.dataFetch.isResult);
+  const search = useSelector(state => state.dataFetch.search);
   const [modalIsOpen, setIsOpen] = useState(0);
   const [articleId, setArticleId] = useState(null);
-
-  const {
-    error,
-    loaded,
-    result,
-    search,
-    setChangeSearch,
-    setFetchApi,
-  } = props;
-
+  const dispatch = useDispatch();
 
   let url = `https://hn.algolia.com/api/v1/search`;
 
@@ -31,9 +23,8 @@ function Page(props) {
 
 
   useEffect(() => {
-    setFetchApi(url)
-  }, [url]);
-
+    dispatch(setFetchApi(url))
+  }, [dispatch]);
 
 
   function getOpenModal(value) {
@@ -51,12 +42,12 @@ function Page(props) {
 
 
   function onSearchChange(event){
-    setChangeSearch(event.target.value)
+    dispatch(setChangeSearch(event.target.value));
   }
 
   if (error) {
     return <div>Oops: {error.message}</div>;
-  } else if (!loaded) {
+  } else if (loaded) {
     return <div>Loaded...</div>;
   } else {
     return (
@@ -105,17 +96,4 @@ function Page(props) {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    search: state.dataFetch.search,
-    result: getResult(state),
-    loaded: getLoaded(state),
-    error: getError(state),
-  }
-}
-
-const mapDispatchToProps =  {
-  setChangeSearch,
-  setFetchApi,
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Page);
+export default Page;

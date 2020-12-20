@@ -6,10 +6,9 @@ export const CHANGE_SEARCH = 'CHANGE_SEARCH';
 
 
 
-export function setFetchLoaded(loaded) {
+export function setFetchLoaded() {
     return {
         type: FETCH_LOADED,
-        payload: loaded
     }
 }
 
