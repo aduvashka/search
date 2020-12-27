@@ -1,6 +1,4 @@
-import {  setFetchSuccess, setFetchLoaded, setFetchError,} from './actions';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux'
+import { setFetchSuccess, setFetchLoaded, setFetchError } from './actions';
 
 export function setFetchApi(url) {
 
@@ -10,31 +8,12 @@ export function setFetchApi(url) {
         .then((res) => res.json())
         .then(
             (result) => {
+            console.log("🚀 ~ file: setFetchApi.js ~ line 12 ~ return ~ result", result)
                 dispatch(setFetchSuccess(result))
-        },
+            },
             (error) => {
                 dispatch(setFetchError(error))
-         }
+            }
         )
-    }
+    };
 }
-
-
-// export function setFetchApi(url) {
-    // const dispatch = useDispatch();
-//         useEffect(() => {
-//             fetch(url)
-//             .then((res) => res.json())
-//             .then(
-//                 (result) => {
-//                     dispatch(setFetchLoaded(true));
-//                     dispatch(setFetchSuccess(result))
-//                 },
-//                 (error) => {
-//                     dispatch(setFetchLoaded(true));
-//                     dispatch(setFetchError(error))
-//                 }
-//             )
-
-//       }, [url]);
-// };

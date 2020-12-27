@@ -24,7 +24,7 @@ function Page(props) {
 
   useEffect(() => {
     dispatch(setFetchApi(url))
-  }, [dispatch]);
+  }, [dispatch, url]);
 
 
   function getOpenModal(value) {
@@ -47,7 +47,7 @@ function Page(props) {
 
   if (error) {
     return <div>Oops: {error.message}</div>;
-  } else if (loaded) {
+  } else if (!loaded) {
     return <div>Loaded...</div>;
   } else {
     return (
@@ -65,7 +65,7 @@ function Page(props) {
           />
         </form>
         <div className= "article">
-          {result &&
+          {result.hits &&
             result.hits.map(article => (
               <div className= "item" key={article.objectID}>
                 <button>

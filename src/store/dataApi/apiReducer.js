@@ -21,6 +21,7 @@ export const dataFetchReducer = (state = initialState, action) => {
         case FETCH_LOADED:
             return {
                 ...state,
+                isLoaded: action.payload,
             };
         case FETCH_ERROR:
             return {
