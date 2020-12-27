@@ -1,4 +1,11 @@
-import { FETCH_SUCCESS, FETCH_LOADED, FETCH_ERROR, CHANGE_SEARCH } from './actions'
+import {
+    FETCH_SUCCESS,
+    FETCH_LOADED,
+    FETCH_ERROR,
+    CHANGE_SEARCH,
+    MODAL_OPEN,
+    SET_ARTICLE,
+} from './actions'
 
 
 const initialState = {
@@ -6,12 +13,13 @@ const initialState = {
     isError: null,
     isResult: {},
     search: '',
+    modal: 0,
+    idArticle: null,
 };
 
 
 
 export const dataFetchReducer = (state = initialState, action) => {
-    console.log(state);
     switch (action.type) {
         case FETCH_SUCCESS:
             return {
@@ -33,6 +41,16 @@ export const dataFetchReducer = (state = initialState, action) => {
                 ...state,
                 search: action.payload,
             };
+        case MODAL_OPEN:
+            return {
+                ...state,
+                modal: action.payload,
+            }
+        case SET_ARTICLE:
+            return {
+                ...state,
+                idArticle: action.payload,
+            }
         default:
             return state;
     }

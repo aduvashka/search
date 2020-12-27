@@ -3,6 +3,8 @@ export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_ERROR = 'FETCH_ERROR';
 
 export const CHANGE_SEARCH = 'CHANGE_SEARCH';
+export const MODAL_OPEN = 'MODAL_OPEN';
+export const SET_ARTICLE = 'SET_ARTICLE';
 
 
 
@@ -31,5 +33,19 @@ export function setChangeSearch(search) {
     return {
         type: CHANGE_SEARCH,
         payload: search
+    }
+}
+
+export function setModalIsOpen(value) {
+    return {
+        type: MODAL_OPEN,
+        payload: value
+    }
+}
+
+export function setArticleId(id) {
+    return {
+        type: SET_ARTICLE,
+        payload: id
     }
 }

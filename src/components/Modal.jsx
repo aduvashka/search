@@ -1,6 +1,8 @@
-import React, { Fragment, useEffect,useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import Comments from './Comments';
 import "./Modal.css";
+import { useSelector, useDispatch } from 'react-redux'
+import { setStoryApi } from '../store/Modal/setStoryApi';
 
 
 function Modal(props) {
@@ -9,9 +11,8 @@ function Modal(props) {
     articleId,
   } = props;
 
-
-  // const [isLoaded, setIsLoaded] = useState(false);
-  const [storyId, setStoryId] = useState(null);
+  const storyId = useSelector(state => state.dataStoryId.storyId);
+  const dispatch = useDispatch();
 
   let url = `https://hn.algolia.com/api/v1/items`;
 
@@ -20,15 +21,9 @@ function Modal(props) {
   }
 
   useEffect(() => {
-    fetch(url)
-      .then(res => res.json())
-      .then(
-        (story) => {
-          // setIsLoaded(true);
-          setStoryId(story);
-        }
-      )
-  }, [url]);
+    dispatch(setStoryApi(url))
+  }, [dispatch, url]);
+
 
     return (
       <Fragment>

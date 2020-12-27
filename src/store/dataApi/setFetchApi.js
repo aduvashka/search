@@ -8,7 +8,6 @@ export function setFetchApi(url) {
         .then((res) => res.json())
         .then(
             (result) => {
-            console.log("🚀 ~ file: setFetchApi.js ~ line 12 ~ return ~ result", result)
                 dispatch(setFetchSuccess(result))
             },
             (error) => {

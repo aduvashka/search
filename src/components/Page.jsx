@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import "./styles.css"
 import Modal from "./Modal"
 import { setChangeSearch } from '../store/dataApi/actions';
 import { setFetchApi } from '../store/dataApi/setFetchApi';
+import { setModalIsOpen } from '../store/dataApi/actions';
+import { setArticleId } from '../store/dataApi/actions';
 
 function Page(props) {
 
@@ -11,8 +13,9 @@ function Page(props) {
   const loaded = useSelector(state => state.dataFetch.isLoaded);
   const result = useSelector(state => state.dataFetch.isResult);
   const search = useSelector(state => state.dataFetch.search);
-  const [modalIsOpen, setIsOpen] = useState(0);
-  const [articleId, setArticleId] = useState(null);
+  const modalIsOpen = useSelector(state => state.dataFetch.modal);
+  const articleId = useSelector(state => state.dataFetch.idArticle);
+
   const dispatch = useDispatch();
 
   let url = `https://hn.algolia.com/api/v1/search`;
@@ -29,14 +32,14 @@ function Page(props) {
 
   function getOpenModal(value) {
     return function () {
-      setIsOpen(value);
-      setArticleId(value);
+      dispatch(setModalIsOpen(value));
+      dispatch(setArticleId(value));
     }
   }
 
   function getCloseModal(){
     return function () {
-      setIsOpen(0);
+      dispatch(setModalIsOpen(0))
     }
   }
 
