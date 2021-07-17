@@ -1,19 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App';
+import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware  } from 'redux';
-import rootReducer from './store/rootReducer';
-import logger from 'redux-logger'
-import thunk from 'redux-thunk'
+import rootReducer from './redux/rootReducer';
+import { configureStore } from '@reduxjs/toolkit'
 
-
-const store = createStore(rootReducer,
-  applyMiddleware(logger, thunk)
-);
-
+const store = configureStore({ reducer: rootReducer })
 
 ReactDOM.render(
   <React.StrictMode>

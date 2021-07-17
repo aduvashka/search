@@ -1,0 +1,22 @@
+.comment {
+  margin: 15px 0;
+  text-align: start;
+}
+.comment p a:hover {
+  background: #fff;
+}
+.comment p a {
+  list-style: none;
+  text-decoration: none;
+  display: inline;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+}
+
+.comment p a:before {
+  content: none;
+}
+.comment .nextComment {
+  margin-left: 25px;
+}

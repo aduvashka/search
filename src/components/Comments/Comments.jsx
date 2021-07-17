@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import '../index';
+import "./Comments.css";
 
 
 function Comments(props) {

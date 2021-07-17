@@ -1,6 +1,6 @@
 import React  from 'react';
 import './App.css';
-import Page from './Page';
+import Page from '../Page/Page';
 
 
 

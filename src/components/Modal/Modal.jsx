@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect } from 'react';
-import Comments from './Comments';
+import Comments from '../Comments/Comments';
 import "./Modal.css";
 import { useSelector, useDispatch } from 'react-redux'
-import { setStoryApi } from '../store/Modal/setStoryApi';
+import { setStoryApi } from '../../redux/modal';
 
 
 function Modal(props) {

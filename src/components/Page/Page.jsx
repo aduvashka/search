@@ -1,20 +1,26 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import "./styles.css"
-import Modal from "./Modal"
-import { setChangeSearch } from '../store/dataApi/actions';
-import { setFetchApi } from '../store/dataApi/setFetchApi';
-import { setModalIsOpen } from '../store/dataApi/actions';
-import { setArticleId } from '../store/dataApi/actions';
+import "../../"
+import Modal from "../Modal/Modal"
+import {
+  setFetchApi,
+  setModalIsOpen,
+  setArticleId,
+  setChangeSearch,
+} from '../../redux/dataApi';
+import "./Page.css";
+
 
 function Page(props) {
 
-  const error = useSelector(state => state.dataFetch.isError);
-  const loaded = useSelector(state => state.dataFetch.isLoaded);
-  const result = useSelector(state => state.dataFetch.isResult);
+  const error = useSelector(state => state.dataFetch.error);
+  const loaded = useSelector(state => state.dataFetch.loaded);
+  console.log("🚀 ~ file: Page.jsx ~ line 16 ~ Page ~ loaded", loaded)
+  const result = useSelector(state => state.dataFetch.result);
+  console.log("🚀 ~ file: Page.jsx ~ line 17 ~ Page ~ result", result)
   const search = useSelector(state => state.dataFetch.search);
   const modalIsOpen = useSelector(state => state.dataFetch.modal);
-  const articleId = useSelector(state => state.dataFetch.idArticle);
+  const articleId = useSelector(state => state.dataFetch.articleId);
 
   const dispatch = useDispatch();
 
@@ -72,7 +78,7 @@ function Page(props) {
             result.hits.map(article => (
               <div className= "item" key={article.objectID}>
                 <button>
-                  <a href={article.url} target="_blank">
+                  <a href={article.url} target="_blank" rel="noreferrer">
                     {article.title}
                   </a>
                 </button>
@@ -86,7 +92,7 @@ function Page(props) {
               </div>
             ))
           }
-          { modalIsOpen &&
+          {modalIsOpen &&
             <Modal
               isOpen={articleId}
               onClose={getCloseModal(articleId)}
